@@ -40,8 +40,6 @@
 
 This project is being built as a portfolio piece. Check the [Project Specification](./AI-Comparator-Project-Spec.md) for the detailed development plan.
 
-**Timeline:** ~12 days of development
-
 ---
 
 ## 👨‍💻 Author
