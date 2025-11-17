@@ -115,104 +115,6 @@ User Interface (React)
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 16 or higher
-- PostgreSQL 14 or higher
-- GitHub Personal Access Token
-- Git
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/DanielFleshler/starscout.git
-   cd starscout
-   ```
-
-2. **Install backend dependencies**
-   ```bash
-   cd backend
-   npm install
-   ```
-
-3. **Install frontend dependencies**
-   ```bash
-   cd ../frontend
-   npm install
-   ```
-
-4. **Setup database**
-   ```bash
-   # Create PostgreSQL database
-   createdb starscout
-
-   # Run migrations
-   cd ../backend
-   npm run migrate
-   ```
-
-5. **Configure environment variables**
-
-   Create `backend/.env`:
-   ```env
-   # Database
-   DATABASE_URL=postgresql://localhost:5432/starscout
-
-   # GitHub API
-   GITHUB_TOKEN=your_github_personal_access_token
-
-   # Server
-   PORT=3000
-   NODE_ENV=development
-
-   # Workers
-   WORKER_COUNT=3
-   ```
-
-   Create `frontend/.env`:
-   ```env
-   REACT_APP_API_URL=http://localhost:3000
-   ```
-
-6. **Start the development servers**
-
-   Terminal 1 - Backend API:
-   ```bash
-   cd backend
-   npm run dev
-   ```
-
-   Terminal 2 - Workers:
-   ```bash
-   cd backend
-   npm run workers
-   ```
-
-   Terminal 3 - Frontend:
-   ```bash
-   cd frontend
-   npm start
-   ```
-
-7. **Open your browser**
-   ```
-   http://localhost:3000
-   ```
-
----
-
-## 📚 Documentation
-
-- **[Project Specification](./PROJECT-SPEC.md)** - Complete technical specification
-- **[API Documentation](./docs/API.md)** - API endpoints and usage _(coming soon)_
-- **[Architecture Guide](./docs/ARCHITECTURE.md)** - System design details _(coming soon)_
-- **[Deployment Guide](./docs/DEPLOYMENT.md)** - Production deployment _(coming soon)_
-
----
-
 ## 🎯 Usage
 
 1. **Enter GitHub username** in the input field
@@ -224,23 +126,6 @@ User Interface (React)
    - Improvement suggestions
    - Detailed metrics per repository
 5. **Export portfolio data** in your preferred format
-
----
-
-## 🧪 Running Tests
-
-```bash
-# Backend tests
-cd backend
-npm test
-
-# Frontend tests
-cd frontend
-npm test
-
-# Integration tests
-npm run test:integration
-```
 
 ---
 
@@ -317,41 +202,9 @@ This project demonstrates:
 
 ---
 
-## 🚧 Roadmap
-
-### Phase 1: MVP ✅ (Current)
-- [x] Core job queue system
-- [x] Basic GitHub analysis
-- [x] Portfolio scoring
-- [x] React dashboard
-- [ ] Deployment
-
-### Phase 2: Enhancements
-- [ ] AI-powered insights using Claude/GPT
-- [ ] Historical tracking (monthly re-analysis)
-- [ ] Compare multiple users
-- [ ] Public shareable profile pages
-- [ ] Email notifications
-
-### Phase 3: Advanced Features
-- [ ] GitHub OAuth integration
-- [ ] Automated profile README updates
-- [ ] Browser extension
-- [ ] Public API for developers
-- [ ] Portfolio website generator
-
----
-
 ## 🤝 Contributing
 
 This is a personal portfolio project, but feedback and suggestions are welcome!
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ---
 
 ## 📄 License
@@ -365,25 +218,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Daniel Fleshler**
 
 - GitHub: [@DanielFleshler](https://github.com/DanielFleshler)
-- LinkedIn: [Connect with me](https://www.linkedin.com/in/daniel-fleshler)
+- LinkedIn: [Connect with me](https://www.linkedin.com/in/danielflesh/)
 
 ---
-
-## 🙏 Acknowledgments
-
-- GitHub API for providing comprehensive repository data
-- The open-source community for inspiration
-- Various job queue implementations (BullMQ, Celery) for architectural insights
-
----
-
-## 📞 Support
-
-If you have questions or run into issues:
-
-1. Check the [Project Specification](./PROJECT-SPEC.md)
-2. Review existing [Issues](https://github.com/DanielFleshler/starscout/issues)
-3. Create a new issue with detailed information
 
 ---
 
