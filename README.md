@@ -15,6 +15,7 @@
 ### The Problem It Solves
 
 Developers have repositories scattered across GitHub but often struggle to:
+
 - Identify which projects are portfolio-worthy
 - Get objective insights into their coding activity
 - Understand how their GitHub profile appears to recruiters
@@ -23,6 +24,7 @@ Developers have repositories scattered across GitHub but often struggle to:
 ### The Solution
 
 Enter a GitHub username and get:
+
 - 📊 **Deep repository analysis** - Stars, languages, code quality, README scores
 - 🏆 **Portfolio rankings** - AI-powered scoring of which repos to showcase
 - 💡 **Actionable suggestions** - Specific recommendations to improve visibility
@@ -30,9 +32,55 @@ Enter a GitHub username and get:
 
 ---
 
+## 🏗️ System Architecture
+
+### High-Level Overview
+
+```
+┌─────────────────────────────────────────────┐
+│           React Dashboard (Frontend)         │
+│  - Submit GitHub username                    │
+│  - View analysis progress in real-time       │
+│  - Explore results & portfolio suggestions   │
+└─────────────────┬───────────────────────────┘
+                  │ REST API
+┌─────────────────▼───────────────────────────┐
+│           Express API (Backend)              │
+│  POST /api/analyze/:username                 │
+│  GET  /api/analysis/:id                      │
+│  GET  /api/results/:id                       │
+└─────────────────┬───────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────┐
+│         Priority Job Queue (Custom)          │
+│  - Min-Heap based priority queue             │
+│  - Job dependency management                 │
+│  - Persistent storage in PostgreSQL          │
+└─────────────────┬───────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────┐
+│            Worker Pool (3 Workers)           │
+│  Each worker runs as separate process:       │
+│  - Worker 1: Processing job #42...           │
+│  - Worker 2: Cloning repo "awesome-app"...   │
+│  - Worker 3: Analyzing README...             │
+└─────────────────┬───────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────┐
+│          PostgreSQL Database                 │
+│  - Analyses (main records)                   │
+│  - Jobs (queue + state)                      │
+│  - Repositories (cached analysis)            │
+│  - Results (portfolio data)                  │
+└──────────────────────────────────────────────┘
+```
+
+---
+
 ## ✨ Features
 
 ### Core Functionality
+
 - 🔄 **Custom Job Queue System** - Priority-based task scheduling with heap implementation
 - 👷 **Distributed Worker Pool** - Concurrent processing with 3+ workers
 - 🎯 **Intelligent Ranking** - Multi-factor algorithm scoring repos 0-100
@@ -40,6 +88,7 @@ Enter a GitHub username and get:
 - 💾 **Smart Caching** - Avoids redundant API calls and analysis
 
 ### Analysis Metrics
+
 - ⭐ Stars, forks, and engagement metrics
 - 📝 README quality scoring (0-100)
 - 💻 Lines of code by language
@@ -49,6 +98,7 @@ Enter a GitHub username and get:
 - 📅 Activity and recency tracking
 
 ### Portfolio Generation
+
 - 🏅 Top 5 repository recommendations
 - 📊 Language breakdown visualization
 - 📈 Contribution statistics
@@ -60,6 +110,7 @@ Enter a GitHub username and get:
 ## 🛠️ Tech Stack
 
 ### Backend
+
 - **Runtime:** Node.js 16+
 - **Framework:** Express.js
 - **Database:** PostgreSQL 14+
@@ -67,16 +118,19 @@ Enter a GitHub username and get:
 - **Workers:** Node.js worker processes
 
 ### Frontend
+
 - **Framework:** React 18
 - **Styling:** Tailwind CSS
 - **Charts:** Recharts
 - **State:** React Hooks + Context
 
 ### External APIs
+
 - **GitHub API** - Profile and repository data
 - **Git** - Repository cloning and analysis
 
 ### Deployment
+
 - **Backend:** Railway / Render
 - **Frontend:** Vercel
 - **Database:** Supabase / Railway
@@ -127,24 +181,28 @@ User Interface (React)
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/DanielFleshler/starscout.git
    cd starscout
    ```
 
 2. **Install backend dependencies**
+
    ```bash
    cd backend
    npm install
    ```
 
 3. **Install frontend dependencies**
+
    ```bash
    cd ../frontend
    npm install
    ```
 
 4. **Setup database**
+
    ```bash
    # Create PostgreSQL database
    createdb starscout
@@ -157,6 +215,7 @@ User Interface (React)
 5. **Configure environment variables**
 
    Create `backend/.env`:
+
    ```env
    # Database
    DATABASE_URL=postgresql://localhost:5432/starscout
@@ -173,6 +232,7 @@ User Interface (React)
    ```
 
    Create `frontend/.env`:
+
    ```env
    REACT_APP_API_URL=http://localhost:3000
    ```
@@ -180,18 +240,21 @@ User Interface (React)
 6. **Start the development servers**
 
    Terminal 1 - Backend API:
+
    ```bash
    cd backend
    npm run dev
    ```
 
    Terminal 2 - Workers:
+
    ```bash
    cd backend
    npm run workers
    ```
 
    Terminal 3 - Frontend:
+
    ```bash
    cd frontend
    npm start
@@ -276,25 +339,31 @@ starscout/
 ## 🔑 Key Technical Highlights
 
 ### 1. Custom Priority Queue
+
 Implemented from scratch using a min-heap for O(log n) operations:
+
 - Efficient job prioritization
 - Database-backed persistence
 - Race condition handling with PostgreSQL locks
 
 ### 2. Distributed Worker Architecture
+
 - Multiple worker processes running concurrently
 - Job deduplication using `FOR UPDATE SKIP LOCKED`
 - Graceful error handling and retry logic
 - Exponential backoff for failed jobs
 
 ### 3. GitHub API Integration
+
 - Rate limiting with intelligent backoff
 - Pagination handling for large datasets
 - Authentication with personal access tokens
 - Caching to minimize API calls
 
 ### 4. Ranking Algorithm
+
 Multi-factor scoring system considering:
+
 - Repository engagement (stars, forks)
 - Documentation quality (README score)
 - Project activity and recency
@@ -320,6 +389,7 @@ This project demonstrates:
 ## 🚧 Roadmap
 
 ### Phase 1: MVP ✅ (Current)
+
 - [x] Core job queue system
 - [x] Basic GitHub analysis
 - [x] Portfolio scoring
@@ -327,6 +397,7 @@ This project demonstrates:
 - [ ] Deployment
 
 ### Phase 2: Enhancements
+
 - [ ] AI-powered insights using Claude/GPT
 - [ ] Historical tracking (monthly re-analysis)
 - [ ] Compare multiple users
@@ -334,6 +405,7 @@ This project demonstrates:
 - [ ] Email notifications
 
 ### Phase 3: Advanced Features
+
 - [ ] GitHub OAuth integration
 - [ ] Automated profile README updates
 - [ ] Browser extension
