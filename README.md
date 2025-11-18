@@ -75,6 +75,36 @@ Enter a GitHub username and get:
 └──────────────────────────────────────────────┘
 ```
 
+## 🏗️ System Architecture
+
+```
+User Interface (React)
+        ↓
+   Express API
+        ↓
+  Priority Queue ←→ PostgreSQL
+        ↓
+  Worker Pool (3 workers)
+        ↓
+  Job Execution
+   ├─ GitHub API calls
+   ├─ Git operations
+   ├─ Code analysis
+   └─ Portfolio generation
+```
+
+### Job Flow Example
+
+1. **User submits:** GitHub username
+2. **API creates jobs:**
+   - Job #1: Fetch profile (priority: 10)
+   - Job #2: Fetch repositories (priority: 9)
+3. **Worker processes:** Fetches 25 repositories
+4. **API creates 25 analysis jobs:** One per repo (priority: 5)
+5. **Workers process in parallel:** 3 workers analyzing simultaneously
+6. **Final job:** Generate portfolio (priority: 1)
+7. **User receives:** Complete analysis with rankings
+
 ---
 
 ## ✨ Features
@@ -134,38 +164,6 @@ Enter a GitHub username and get:
 - **Backend:** Railway / Render
 - **Frontend:** Vercel
 - **Database:** Supabase / Railway
-
----
-
-## 🏗️ System Architecture
-
-```
-User Interface (React)
-        ↓
-   Express API
-        ↓
-  Priority Queue ←→ PostgreSQL
-        ↓
-  Worker Pool (3 workers)
-        ↓
-  Job Execution
-   ├─ GitHub API calls
-   ├─ Git operations
-   ├─ Code analysis
-   └─ Portfolio generation
-```
-
-### Job Flow Example
-
-1. **User submits:** GitHub username
-2. **API creates jobs:**
-   - Job #1: Fetch profile (priority: 10)
-   - Job #2: Fetch repositories (priority: 9)
-3. **Worker processes:** Fetches 25 repositories
-4. **API creates 25 analysis jobs:** One per repo (priority: 5)
-5. **Workers process in parallel:** 3 workers analyzing simultaneously
-6. **Final job:** Generate portfolio (priority: 1)
-7. **User receives:** Complete analysis with rankings
 
 ---
 
