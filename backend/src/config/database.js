@@ -1,3 +1,4 @@
+const logger = require("../utils/logger");
 const { Pool } = require("pg");
 require("dotenv").config();
 
@@ -11,17 +12,17 @@ const pool = new Pool({
 
 // Handle pool errors
 pool.on("error", (err) => {
-	console.error("❌ Unexpected database pool error:", err);
+	logger.error("Unexpected database pool error:", err);
 	process.exit(-1);
 });
 
 // Test connection on startup
 pool.query("SELECT NOW()", (err, res) => {
 	if (err) {
-		console.error("❌ Database connection failed:", err.message);
+		logger.error("Database connection failed:", err.message);
 		process.exit(-1);
 	} else {
-		console.log("✅ Database connected successfully");
+		logger.info("Database connected successfully");
 	}
 });
 
